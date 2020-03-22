@@ -1,10 +1,10 @@
-FROM python:3.7-alpine as base
+FROM python:3.7-stretch as base
 
 FROM base as build
 
 COPY src/requirements.txt ./requirements.txt
 COPY requirements_local.txt ./requirements_local.txt
-RUN pip install -r ./requirements.txt -r ./requirements_local.txt
+RUN pip install --no-cache-dir -r ./requirements.txt -r ./requirements_local.txt
 
 FROM base as release
 
@@ -12,18 +12,20 @@ ARG RUN_ENVIRONMENT
 ENV FLASK_ENV=${RUN_ENVIRONMENT}
 ENV ENV=${RUN_ENVIRONMENT}
 
+EXPOSE 5000
+
 WORKDIR /app
 
-RUN addgroup -S app && \
-    adduser -S -G app app && \
-    chown -R app:app /app && \
-    apk --update --no-cache add curl    
+RUN useradd app
+USER app
 
 COPY . /app/
-COPY --from=BUILD /usr/local/ /usr/local
+
+COPY --from=build /usr/local/lib/ /usr/local/lib/
+COPY --from=build /usr/local/bin /usr/local/bin
 
 
-USER app
+
 
 CMD python app/src/main.py
 
