@@ -12,8 +12,6 @@ services:
         RUN_ENVIRONMENT: development
     environment:
       FLASK_DEBUG: 1
-    networks:
-      - network_test
     ports:
       - "5000:5000"
     expose:
@@ -28,7 +26,7 @@ services:
 
 
   db:
-    image: postgres:10.6
+    image: postgres:11.0
     restart: always
     container_name: db
     environment:
@@ -38,15 +36,11 @@ services:
     volumes:
       - db-data:/var/lib/postgresql/data
       - .:/app
-    networks:
-      - network_test
     ports:
       - 54320:5432
     expose:
       - 54320
-networks:
-  network_test:
-    driver: bridge
+
 
 
 
