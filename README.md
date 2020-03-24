@@ -1,4 +1,4 @@
-****# hummingbird-v2
+# Hummingbird V2
 
 
 ## Project Resources
@@ -23,7 +23,6 @@ pip install -r requirements_local.txt
 ___
 ```
 export PYTHONPATH=$PYTHONPATH:$(pwd)/src
-export FLASK_APP=src/main.py
 export FLASK_ENV=development
 ```
 
@@ -31,10 +30,8 @@ export FLASK_ENV=development
 ## Running local machine
 ___
 ```
+export PYTHONPATH=$PYTHONPATH:$(pwd)/src
 export FLASK_ENV=development
-
-flask run
-or
 python src/main.py 
 ```
 
@@ -46,15 +43,16 @@ docker-compose up --build
 
 ```
 
-## Swagger Doc
+## Swagger API Doc 
 http://127.0.0.1:5000/data_api/v1/
 
 
-## Setup database 
+## To Setup database locally
 ___
 
 - Local
 ```
+export FLASK_APP=src/main.py
 export FLASK_ENV=development
 flask db init --directory=local_migrations
 flask db migrate --directory=local_migrations
@@ -62,13 +60,16 @@ flask db upgrade --directory=local_migrations
 ```
 
 
-## Tests
+## To run tests locally
 ___
 ```
+export PYTHONPATH=$PYTHONPATH:$(pwd)/src
 export FLASK_ENV=testing
-
-python -m unittest discover -s tests
-or
 python tests/runner.py
 ```
 
+## To run Flake 8 For Style Guide Enforcement
+___
+```
+flake8 src
+```

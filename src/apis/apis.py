@@ -1,6 +1,8 @@
 from flask import Blueprint
 from flask_restplus import Api as ApiRestPlus
-from apis.namespaces import data as data_namespace
+from apis.auth import endpoints as auth_endpoints
+from apis.data import endpoints as data_endpoints
+from apis.test_point import endpoints as test_point_endpoints
 
 
 client_api = ApiRestPlus(
@@ -11,10 +13,12 @@ client_api = ApiRestPlus(
 )
 
 # Bind each namespace for data here
-data_namespace.bind(client_api)
-# Bind each namespace for data here
+auth_endpoints.bind(client_api)
+data_endpoints.bind(client_api)
+test_point_endpoints.bind(client_api)
 
 
 def load_apis(app):
-    app.register_blueprint(client_api.blueprint, url_prefix='/data_api/v1')
-
+    app.register_blueprint(
+        client_api.blueprint, url_prefix='/data_api/v1'
+    )

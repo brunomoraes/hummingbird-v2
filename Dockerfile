@@ -26,9 +26,6 @@ COPY . /app/
 COPY --from=build /usr/local/lib/ /usr/local/lib/
 COPY --from=build /usr/local/bin /usr/local/bin
 
-
-
-
 CMD python app/src/main.py
 
 ENTRYPOINT ["/bin/sh", "/app/entrypoint.sh"]
