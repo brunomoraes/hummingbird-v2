@@ -33,7 +33,8 @@ class DevelopmentConfig(DefaultConfig):
     TESTING = False
     DEBUG = False
 
-    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://teste:teste@db:5432/hummingbird-v2'
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2:' \
+                              '//teste:teste@db:5432/hummingbird-v2'
 
 
 class TestingConfig(DefaultConfig):
@@ -50,9 +51,8 @@ class ProductionConfig(DefaultConfig):
     TESTING = False
     DEBUG = False
 
-<<<<<<< HEAD
-    SQLALCHEMY_DATABASE_URI = "postgresql+psycopg2://teste:teste@127.0.0.1:54320/hummingbird-v2"
-=======
+    SQLALCHEMY_DATABASE_URI = "postgresql+psycopg2:" \
+                              "//teste:teste@127.0.0.1:54320/hummingbird-v2"
     # SWAGGER
     SWAGGER_SUPPORTED_SUBMIT_METHODS = []
 
@@ -65,7 +65,6 @@ class ProductionConfig(DefaultConfig):
     # TODO: Setup a secret key
     # JWT_SECRET_KEY = os.getenv('JWT_SECRET_KEY', '')
     JWT_ACCESS_TOKEN_EXPIRES = 3600
->>>>>>> upstream/master
 
 
 default = DefaultConfig()
